@@ -15,22 +15,17 @@ ALU dut(clk, reset, A, B, Opin, result);
 initial begin
     $dumpfile("ALU.vcd");
     $dumpvars(0, ALU_tb);
-    A = 32'b00000000000000000000000000011011;
-    B = 32'b00000000000000000000000000101110;
-    
-end
-initial begin
-    Opin = 4'b0100; #2
-    Opin = 4'b0000; 
-end
-
-initial begin
-
     clk = 0;
     forever #0.5 clk=~clk;
 end
-
 initial begin
+    A = 32'b00000000000000000000000000011011;
+    B = 32'b00000000000000000000000000101110;
+end
+initial begin
+    Opin = 4'b0000; #5
+    Opin = 4'b0100; #5
     $finish;
 end
+
 endmodule
