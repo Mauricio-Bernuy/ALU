@@ -39,7 +39,11 @@ always @(posedge clk)
         case (Opcode)
             AND:    result = A & B;
             OR:     result = A | B;
+            NOR:    result = ~(A & B);
+            XOR:    result = A ^ B;
             add:    result = A + B;
+            sub:    result = A - B;
+            slt:
             default: result = 32'b00000000000000000000000000000000;
         endcase
     end
