@@ -2,7 +2,7 @@
 // 7 Op ALU Simulation
 /////////////////////////////////////////
 
-module ALU (clk, reset, A, B, Opcode, result);
+module ALU (clk, reset, A, B, Opin, result);
 
 // var declaration 
 
@@ -11,11 +11,11 @@ input reset;
 
 input[31:0] A;
 input[31:0] B;
-input[3:0] Opcode;
+input[3:0] Opin;
 output[31:0] result;
 
 reg[3:0] Opcode;
-
+reg[31:0] result;
 // parameters
 
 // Logic params
@@ -23,7 +23,7 @@ reg[3:0] Opcode;
 parameter AND   = 0100;
 parameter OR    = 0101;
 parameter NOR   = 0111;
-parameter XOR   = 0110
+parameter XOR   = 0110;
 
 // Arithmetic params
 
@@ -35,8 +35,12 @@ parameter slt   = 1010;
 
 always @(posedge clk)
     begin
+        Opcode <= Opin;
         case (Opcode)
             AND:    result = A & B;
             OR:     result = A | B;
-
+            add:    result = A + B;
+            default: result = 32'b00000000000000000000000000000000;
+        endcase
     end
+endmodule
