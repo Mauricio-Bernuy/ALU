@@ -11,10 +11,10 @@ input reset;
 
 input[31:0] A;
 input[31:0] B;
-
+input[3:0] Opcode;
 output[31:0] result;
 
-reg[31:0] result;
+reg[31:0] Opcode;
 
 // parameters
 
