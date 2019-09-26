@@ -2,7 +2,7 @@
 // 7 Op ALU Simulation
 /////////////////////////////////////////
 
-module ALU (clk, reset, A, B, result);
+module ALU (clk, reset, A, B, Opcode, result);
 
 // var declaration 
 
@@ -15,3 +15,19 @@ input[31:0] B;
 output[31:0] result;
 
 reg[31:0] result;
+
+// parameters
+
+// Logic params
+
+parameter AND   = 0100;
+parameter OR    = 0101;
+parameter NOR   = 0111;
+parameter XOR   = 0110
+
+// Arithmetic params
+
+parameter add   = 0000;
+parameter sub   = 0010;
+parameter slt   = 1010;
+
