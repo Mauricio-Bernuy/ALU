@@ -14,7 +14,7 @@ input[31:0] B;
 input[3:0] Opcode;
 output[31:0] result;
 
-reg[31:0] Opcode;
+reg[3:0] Opcode;
 
 // parameters
 
@@ -31,3 +31,12 @@ parameter add   = 0000;
 parameter sub   = 0010;
 parameter slt   = 1010;
 
+// ALU Logic
+
+always @(posedge clk)
+    begin
+        case (Opcode)
+            AND:    result = A & B;
+            OR:     result = A | B;
+
+    end
