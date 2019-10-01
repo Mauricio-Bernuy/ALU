@@ -2,7 +2,7 @@
 // 7 Op ALU Simulation
 /////////////////////////////////////////
 
-module ALU (clk, reset, A, B, Opin, result);
+module ALU (clk, reset, A, B, Opin, result, zero);
 
 // var declaration 
 
@@ -13,9 +13,11 @@ input[31:0] A;
 input[31:0] B;
 input[3:0] Opin;
 output[31:0] result;
+output zero;
 
 reg[3:0] Opcode;
 reg[31:0] result;
+reg zero;
 // parameters
 
 // Logic params
@@ -46,5 +48,6 @@ always @(posedge clk)
             slt:
             default: result = 32'b00000000000000000000000000000000;
         endcase
+        if 
     end
 endmodule
