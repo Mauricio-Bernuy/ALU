@@ -24,10 +24,10 @@ initial begin
 end
 initial begin
     Opin = 4'b0000; #2
-    Opin = 4'b0100; #2
+    Opin = 4'b0101; #2
     Opin = 4'b0111; #2
-    Opin = 4'b0010; #2
     Opin = 4'b1010; #2
+    #4
     $finish;
 end
 

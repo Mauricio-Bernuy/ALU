@@ -49,15 +49,11 @@ always @(posedge clk)
             XOR:    result <= A ^ B;
             add:    result <= A + B;
             sub:    result <= A - B;
-            slt:    
-                result <= A-B;
-                assign temp = result[31];
-                result <= 32'(signed'(temp));
-               
+            slt:    result <= A + B;
             default: result <= zeronum;
         endcase
 
-        if (result <= zeronum)  zero = 1'b1;
+        if (result == zeronum)  zero = 1'b1;
         else                    zero = 1'b0;
     end
 endmodule
