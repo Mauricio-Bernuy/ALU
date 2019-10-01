@@ -1,5 +1,5 @@
 $date
-	Thu Sep 26 10:26:49 2019
+	Mon Sep 30 21:14:43 2019
 $end
 $version
 	Icarus Verilog
@@ -8,84 +8,102 @@ $timescale
 	1ns
 $end
 $scope module ALU_tb $end
-$var wire 32 ! result [31:0] $end
-$var reg 32 " A [31:0] $end
-$var reg 32 # B [31:0] $end
-$var reg 4 $ Opin [3:0] $end
-$var reg 1 % clk $end
-$var reg 1 & reset $end
+$var wire 1 ! zero $end
+$var wire 32 " result [31:0] $end
+$var reg 32 # A [31:0] $end
+$var reg 32 $ B [31:0] $end
+$var reg 4 % Opin [3:0] $end
+$var reg 1 & clk $end
+$var reg 1 ' reset $end
 $scope module dut $end
-$var wire 32 ' A [31:0] $end
-$var wire 32 ( B [31:0] $end
-$var wire 4 ) Opin [3:0] $end
-$var wire 1 % clk $end
-$var wire 1 & reset $end
-$var reg 4 * Opcode [3:0] $end
-$var reg 32 + result [31:0] $end
+$var wire 32 ( A [31:0] $end
+$var wire 32 ) B [31:0] $end
+$var wire 4 * Opin [3:0] $end
+$var wire 1 & clk $end
+$var wire 1 ' reset $end
+$var reg 4 + Opcode [3:0] $end
+$var reg 32 , result [31:0] $end
+$var reg 1 ! zero $end
 $upscope $end
 $upscope $end
 $enddefinitions $end
 #0
 $dumpvars
+bx ,
 bx +
-bx *
-b0 )
-b101110 (
-b11011 '
-x&
-0%
-b0 $
-b101110 #
-b11011 "
-bx !
+b0 *
+b101110 )
+b11011 (
+x'
+0&
+b0 %
+b101110 $
+b11011 #
+bx "
+x!
 $end
 #500000000
-b0 *
-b0 !
+b0 "
+b0 ,
 b0 +
-1%
+0!
+1&
 #1000000000
-0%
+0&
 #1500000000
-b1001001 !
-b1001001 +
-1%
+b1001001 "
+b1001001 ,
+1!
+1&
 #2000000000
-0%
-#2500000000
-1%
-#3000000000
-0%
-#3500000000
-1%
-#4000000000
-0%
-#4500000000
-1%
-#5000000000
-0%
-b100 $
-b100 )
-#5500000000
+0&
+b100 %
 b100 *
-1%
+#2500000000
+b100 +
+0!
+1&
+#3000000000
+0&
+#3500000000
+b0 "
+b0 ,
+1&
+#4000000000
+0&
+b111 %
+b111 *
+#4500000000
+b111 +
+1!
+1&
+#5000000000
+0&
+#5500000000
+1&
 #6000000000
-0%
+0&
+b10 %
+b10 *
 #6500000000
-b0 !
-b0 +
-1%
+b10 +
+1&
 #7000000000
-0%
+0&
 #7500000000
-1%
+1&
 #8000000000
-0%
+0&
+b1010 %
+b1010 *
 #8500000000
-1%
+b1010 +
+1&
 #9000000000
-0%
+0&
 #9500000000
-1%
+b11111111111111111111111111101101 "
+b11111111111111111111111111101101 ,
+1&
 #10000000000
-0%
+0&

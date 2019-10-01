@@ -9,8 +9,8 @@ module ALU_tb;
     reg[3:0] Opin;
 
     wire[31:0] result;
-
-ALU dut(clk, reset, A, B, Opin, result);
+    wire zero;
+ALU dut(clk, reset, A, B, Opin, result, zero);
 
 initial begin
     $dumpfile("ALU.vcd");
@@ -23,8 +23,11 @@ initial begin
     B = 32'b00000000000000000000000000101110;
 end
 initial begin
-    Opin = 4'b0000; #5
-    Opin = 4'b0100; #5
+    Opin = 4'b0000; #2
+    Opin = 4'b0100; #2
+    Opin = 4'b0111; #2
+    Opin = 4'b0010; #2
+    Opin = 4'b1010; #2
     $finish;
 end
 

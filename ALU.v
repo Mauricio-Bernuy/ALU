@@ -18,6 +18,7 @@ output zero;
 reg[3:0] Opcode;
 reg[31:0] result;
 reg zero;
+reg temp;
 // parameters
 
 // Logic params
@@ -33,21 +34,30 @@ parameter add   = 0000;
 parameter sub   = 0010;
 parameter slt   = 1010;
 
+// Zero params
+parameter zeronum = 32'b00000000000000000000000000000000;
+
 // ALU Logic
 
 always @(posedge clk)
     begin
         Opcode <= Opin;
         case (Opcode)
-            AND:    result = A & B;
-            OR:     result = A | B;
-            NOR:    result = ~(A & B);
-            XOR:    result = A ^ B;
-            add:    result = A + B;
-            sub:    result = A - B;
-            slt:
-            default: result = 32'b00000000000000000000000000000000;
+            AND:    result <= A & B;
+            OR:     result <= A | B;
+            NOR:    result <= A ~| B;
+            XOR:    result <= A ^ B;
+            add:    result <= A + B;
+            sub:    result <= A - B;
+            slt:    
+                result <= A-B;
+                assign temp = result[31];
+                result <= 32'(signed'(temp));
+               
+            default: result <= zeronum;
         endcase
-        if 
+
+        if (result <= zeronum)  zero = 1'b1;
+        else                    zero = 1'b0;
     end
 endmodule
