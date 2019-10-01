@@ -18,26 +18,30 @@ output zero;
 reg[3:0] Opcode;
 reg[31:0] result;
 reg zero;
-reg temp;
 // parameters
 
 // Logic params
 
-parameter AND   = 0100;
-parameter OR    = 0101;
-parameter NOR   = 0111;
-parameter XOR   = 0110;
+parameter AND   = 4'b0100;
+parameter OR    = 4'b0101;
+parameter NOR   = 4'b0111;
+parameter XOR   = 4'b0110;
 
 // Arithmetic params
 
-parameter add   = 0000;
-parameter sub   = 0010;
-parameter slt   = 1010;
+parameter add   = 4'b0000;
+parameter sub   = 4'b0010;
+parameter slt   = 4'b1010;
 
 // Zero params
-parameter zeronum = 32'b00000000000000000000000000000000;
+parameter zeronum = 32'b0;
 
 // ALU Logic
+always @(posedge clk or negedge clk)
+    begin
+        if (result == zeronum)  zero = 1'b1;
+        else                    zero = 1'b0;
+    end
 
 always @(posedge clk)
     begin
@@ -49,11 +53,11 @@ always @(posedge clk)
             XOR:    result <= A ^ B;
             add:    result <= A + B;
             sub:    result <= A - B;
-            slt:    result <= A + B;
-            default: result <= zeronum;
-        endcase
 
-        if (result == zeronum)  zero = 1'b1;
-        else                    zero = 1'b0;
+            slt:    result = (A<B) ? 1'b1 : 1'b0;
+
+            default: result <= zeronum;
+        endcase        
     end
+    
 endmodule
