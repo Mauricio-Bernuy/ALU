@@ -4,7 +4,6 @@
 module ALU_tb;
 //var declaration
     reg clk;
-    reg reset;
     reg[31:0] A;
     reg[31:0] B;
     reg[3:0] Opin;
@@ -28,7 +27,7 @@ parameter sub   = 4'b0010;
 parameter slt   = 4'b1010;
 
 //device under test
-ALU dut(clk, reset, A, B, Opin, result, zero);
+ALU dut(clk, A, B, Opin, result, zero);
 
 initial begin
     $dumpfile("ALU.vcd");
@@ -41,7 +40,7 @@ end
 initial begin
 //inputs
     A = 32'b00000000000000000000000000011011;
-    B = 32'b00000000000000000000000000101110;
+    B = 32'b00000000000000000000000000011011;
 end
 
 initial begin

@@ -2,12 +2,11 @@
 // 7 Op ALU Simulation
 /////////////////////////////////////////
 
-module ALU (clk, reset, A, B, Opin, result, zero);
+module ALU (clk, A, B, Opin, result, zero);
 
 // var declaration 
 
 input clk;
-input reset;
 
 input[31:0] A;
 input[31:0] B;
@@ -37,7 +36,7 @@ parameter slt   = 4'b1010;
 parameter zeronum = 32'b0;
 
 // ALU Logic
-always @(posedge clk or negedge clk)
+always @(posedge clk or negedge clk) 
     begin
         if (result == zeronum)  zero = 1'b1;
         else                    zero = 1'b0;
