@@ -10,14 +10,15 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 module bad_ALU(
-	input[31:0] a, b, 
-	input	[3:0] aluop, 
-	output [31:0] result, 
-	output zero
-	);
+	input clk,
+	input[31:0] A, B,
+	input[3:0] Opin,
+	output [31:0] result,
+	output zero);
    
-   reg [31:0]		slt;       
-   reg [31:0]		logicsel; 
+   reg 				slt;       
+   reg [31:0]		result; 
+   reg				zero;
    
    reg [31:0]		alu_val;					// we need to declare this reg
    reg [31:0]		diff;
@@ -25,44 +26,58 @@ module bad_ALU(
    wire 				ss1; 
    wire 				Ss2; 
    wire 				ss3;
+   wire 				logicsel;
    
-	assign {ss0,ss1,Ss2,ss3} = aluop;	// make assigns
+	assign {ss0,ss1,ss2,ss3} = Opin;	// make assigns
+
+	
 
    // define the logicfunction 
 	always @ ( * )
 	begin
-		if (ss1 == 0)
-			if (ss0 == 0) 
-				logicsel = a & b;
+		if (ss1 == 1)
+			if (ss2 == 1) 
+				if (ss3 == 1)
+					result<= ~(A | B);
+				else
+					result<= A ^ B;
 			else
-				logicsel = a | b;
-	else
-		if (ss0 == 1)
-			logicsel= ~(a | b);
-		else 
-			logicsel = a ^ b;
-     end   
+				if (ss3 == 1)	
+					result<= A | B;
+				else
+					result<= A & B;				
+    end   
 
-	always @ ( aluop , a, b )
-		if (aluop == 4'b1010)
+	always @ ( posedge clk )
+		if (Opin == 4'b1010)
 		begin
-			diff <= a - b;			// calculate the difference
-			slt <= 0;				// default value
-			if (diff[31] == 1) 
-				slt <= 1;			// if MSB is 1 slt is 1 
+			diff <= A - B;		
+			slt=0;
+								// calculate the difference			
+			if (diff[31]>0)
+				begin
+					slt<=1;
+				end				// if MSB is 1 slt is 1 
 		end		
+					
 
 	always @ ( * )
 	begin
-		case (aluop)
-			4'b0000 : alu_val = a + b;
-			4'b0010 : alu_val = a - b;
-			4'b1011 : alu_val = slt;
-			default : alu_val = logicsel;
+		case (Opin)
+			4'b0000 : alu_val = A + B;
+			4'b0010 : alu_val = A - B;
+			4'b1010 : alu_val = slt;
+			default : alu_val = 32'b0;
 		endcase		 
+	result <= alu_val; 
+	zero = (alu_val == 32'b0) ? 1: 0;
+   
 	end
-   
-	assign result = alu_val; 
-	assign zero = (alu_val == 32'b0) ? 1: 0;
-   
+
+   always @( * ) 
+    begin
+        if (result == 0)	zero = 1'b1;
+        else				zero = 1'b0;
+    end
+	
 endmodule

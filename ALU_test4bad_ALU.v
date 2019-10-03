@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-`include "ALU.v"
+`include "bad_ALU.v"
 ////////////////////////////////////////////////////////////////////////////////
 // Tool versions:  
 // Description: Simple testbench to test the ALU
@@ -48,7 +48,7 @@ module ALU_test;
 
  
 
-	ALU dut(clk, A, B, Opin, result, zero);
+	bad_ALU dut(clk, A, B, Opin, result, zero);
 
    // The test clock generation
     always				// process always triggers
@@ -61,7 +61,7 @@ module ALU_test;
    // Initialization
    	initial
 	begin 
-	$dumpfile("ALU2.vcd");
+	$dumpfile("ALU3.vcd");
     $dumpvars(0, ALU_test);
 	$readmemh("testvectors_hex.txt", testvec, 0, 11);
 		// TO DO:
@@ -87,7 +87,7 @@ module ALU_test;
 		{Opin,A,B,exp_result}= testvec[vec_cnt]; 
 
 		// Wait another 60ns after which we will be at 80ns
-		#231; // tiempo minimo para que se sincronizen los valores.
+		#181; // tiempo minimo para que se sincronizen los valores.
 	
 		// Check if output is not what we expect to see
 		if ((result !== exp_result) | (zero !== exp_zero))

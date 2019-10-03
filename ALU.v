@@ -53,7 +53,7 @@ always @(posedge clk)
             add:    result <= A + B;
             sub:    result <= A - B;
 
-            slt:    result = (A<B) ? 1'b1 : 1'b0;
+            slt:    result = ($signed(A)<$signed(B)) ? 1'b1 : 1'b0;
 
             default: result <= zeronum;
         endcase        
