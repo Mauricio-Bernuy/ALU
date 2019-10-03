@@ -33,13 +33,12 @@ module ALU_test;
 
    // Vector and Error counts
    reg [10:0]	vec_cnt, err_cnt;
-   reg [99:0]	testvec[0:11];
-
+   reg [99:0]	testvec[0:12];
 
    // TO DO:
    // Define an array called 'testvec' that is wide enough to hold the inputs:
    //   Opin, a, b 
-   
+  
 	//
    // and the expected output
    //   exp_result
@@ -47,44 +46,49 @@ module ALU_test;
    // for each testcase.
    // Note: we will not store 'exp_zero' in this array.
 
+ 
+
+	ALU dut(clk, A, B, Opin, result, zero);
+
    // The test clock generation
-   always				// process always triggers
+    always				// process always triggers
 	begin
 		clk=1; #50;		// clk is 1 for 50 ns 
 		clk=0; #50;		// clk is 0 for 50 ns
 	end					// generate a 100 ns clock
 
+
    // Initialization
-	initial $readmemh("testvectors_hex.txt", testvec);
-    integer i;
-	initial
-	begin
+   	initial
+	begin 
+	$dumpfile("ALU2.vcd");
+    $dumpvars(0, ALU_test);
+	$readmemh("testvectors_hex.txt", testvec, 0, 11);
 		// TO DO:
 		// Read the content of the file testvectors_hex.txt into the 
 		// array testvec. The file contains values in hexadecimal format
-	for (i = 0; i<12; i=i+1)
-		testvec[i] = i;
-         
-		err_cnt=0; // number of errors
-		vec_cnt=0; // number of vectors
-	end
-   
+
+	err_cnt=0; // number of errors
+	vec_cnt=0; // number of vectors
+   	end
+	   
    // TO DO:
    // calculate the value of 'exp_zero' from the 'exp_result'
    // 
+   assign exp_zero = (result==0) ? 1'b1 : 1'b0;
    
    // Tests
 	always @ (posedge clk)		// trigger with the test clock
 	begin
 		// Wait 20 ns, so that we can safely apply the inputs
 		#20; 
-
+		
 		// Assign the signals from the testvec array
 		{Opin,A,B,exp_result}= testvec[vec_cnt]; 
 
 		// Wait another 60ns after which we will be at 80ns
-		#60; 
-
+		#181; // tiempo minimo para que se sincronizen los valores.
+	
 		// Check if output is not what we expect to see
 		if ((result !== exp_result) | (zero !== exp_zero))
 		begin                                         
@@ -112,6 +116,7 @@ module ALU_test;
 	end
 
    // TO DO:
+
    // Instantiate the Unit Under Test (UUT)
    
 endmodule
